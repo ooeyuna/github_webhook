@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'json'
-require 'pry'
 require 'open3'
 
 configure do
@@ -16,7 +15,6 @@ post '/payload' do
   request.body.rewind
   payload = JSON.parse request.body.read
   if request.env['HTTP_X_GITHUB_EVENT'] == 'push'
-    binding.pry
     mvn_build if payload['ref'] == 'refs/heads/master'
   end
 end
